@@ -1,0 +1,65 @@
+/* student.css — Student Portal specific styles */
+
+/* ─────────────────────────────────────────────────── */
+/* RESULT BANNER                                        */
+/* ─────────────────────────────────────────────────── */
+.result-banner {
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+.result-banner.pass {
+  background: linear-gradient(135deg, #059669 0%, #10b981 60%, #34d399 100%);
+}
+.result-banner.fail {
+  background: linear-gradient(135deg, #b91c1c 0%, #ef4444 60%, #f87171 100%);
+}
+.result-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.result-verdict {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.result-score {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.result-pct {
+  font-size: 1.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.result-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+}
+.result-meta-item {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+.result-meta-item span {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.result-meta-item strong {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+}

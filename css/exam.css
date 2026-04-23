@@ -1,0 +1,288 @@
+/* exam.css — Full-screen exam-taking interface */
+
+/* ─────────────────────────────────────────────────── */
+/* EXAM SHELL                                           */
+/* ─────────────────────────────────────────────────── */
+.exam-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* ── TOP BAR ─────────────────────────────────────── */
+.exam-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.exam-topbar-left, .exam-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.exam-course-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+/* Timer */
+.timer-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+.timer-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.timer {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+.timer.danger { color: var(--danger); }
+.timer.pulse  { animation: timerPulse 0.8s ease infinite; }
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* ── BODY ───────────────────────────────────────── */
+.exam-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── SIDEBAR (NAVIGATOR) ────────────────────────── */
+.exam-sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.exam-sidebar h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Question number grid */
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.q-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--border);
+  background: var(--surface-alt);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.q-btn:hover:not(.current) {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(1.08);
+}
+.q-btn.answered {
+  background: var(--secondary-light);
+  border-color: var(--secondary);
+  color: var(--secondary-hover);
+}
+.q-btn.current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(99,102,241,0.4);
+}
+
+/* ── MAIN EXAM AREA ─────────────────────────────── */
+.exam-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.exam-main-inner {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── QUESTION CARD ──────────────────────────────── */
+.question-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  flex: 1;
+  animation: fadeIn 0.25s ease;
+}
+.question-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+/* ── OPTIONS ────────────────────────────────────── */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  background: var(--surface-alt);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+.option-label input[type="radio"] { display: none; }
+.option-label:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: translateX(3px);
+}
+.option-label.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.2);
+}
+.option-letter {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s;
+}
+.option-label.selected .option-letter {
+  background: var(--primary);
+  color: white;
+}
+.option-label:hover .option-letter {
+  background: var(--primary);
+  color: white;
+}
+
+/* True/False */
+.tf-option {
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 1rem;
+}
+.tf-icon {
+  font-size: 1.5rem;
+  display: block;
+}
+.options-container:has(.tf-option) {
+  flex-direction: row;
+  gap: 1rem;
+}
+
+/* Descriptive textarea */
+.descriptive-input {
+  width: 100%;
+  min-height: 160px;
+  padding: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+  color: var(--text-main);
+  background: var(--surface-alt);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.descriptive-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  background: white;
+}
+.desc-hint {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── BOTTOM BAR ─────────────────────────────────── */
+.exam-bottombar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
